@@ -68,11 +68,12 @@ class BuildMatrixView extends View
     return console.log "Error:", err if err?
 
     number = data['build']['number']
-    duration = data['build']['duration'].toString()
+    if data['build']['duration']
+      duration = data['build']['duration'].toString()
 
-    @title.text("Build #{number} took #{duration.formattedDuration()}")
-    @builds.empty()
-    @addBuild(build) for build in data['jobs']
+      @title.text("Build #{number} took #{duration.formattedDuration()}")
+      @builds.empty()
+      @addBuild(build) for build in data['jobs']
 
   # Internal: Add the build details to the builds list.
   #
