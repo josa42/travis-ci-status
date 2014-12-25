@@ -55,7 +55,8 @@ class BuildMatrixView extends View
   # Returns nothing.
   update: (buildId) =>
     @title.text('Fetching build matrix...')
-    atom.travis.builds(id: buildId, @buildMatrix)
+    details = @nwo.split '/'
+    atom.travis.repos(details[0], details[1]).builds(buildId).get(@buildMatrix)
 
   # Internal: Callback for the Travis CI build status, updates the build matrix.
   #
