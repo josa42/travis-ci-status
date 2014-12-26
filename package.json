@@ -4,6 +4,10 @@
   "version": "0.11.1",
   "description": "Add Travis CI status of the project to the Atom status bar. ",
   "repository": "https://github.com/tombell/travis-ci-status",
+  "author": "Tom Bell <tomb@tomb.io> (https://github.com/tombell)",
+  "contributors": [
+    "José Magalhães <magalhas@gmail.com> (https://github.com/magalhas)"
+  ],
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
