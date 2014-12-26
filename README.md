@@ -1,4 +1,4 @@
-# Travis CI Status Package
+# Travis CI Status [![Build Status](https://travis-ci.org/tombell/travis-ci-status.svg?branch=master)](https://travis-ci.org/tombell/travis-ci-status)
 
 Add Travis CI status of the project to the Atom status bar.
 
