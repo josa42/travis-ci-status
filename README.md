@@ -39,10 +39,3 @@ The following commands are available for users to keymap.
 * Better icon for the status bar
 
 Feel free to open an issue to discuss potential features to add or improve.
-
-## Support
-
-If you wish to support this package and help further its development, feel free
-to tip via Gittip.
-
-[![Gittip](http://img.shields.io/gittip/tombell.png)](https://www.gittip.com/tombell/)
