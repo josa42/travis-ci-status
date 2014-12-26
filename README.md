@@ -2,10 +2,6 @@
 
 Add Travis CI status of the project to the Atom status bar.
 
-**Please note:** I am no longer using Atom, this means I won't be actively
-maintaining this project. I will still accept pull requests for bug fixes and
-such.
-
 ## Installing
 
 Use the Atom package manager, which can be found in the Settings view or run
