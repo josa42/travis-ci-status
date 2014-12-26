@@ -36,6 +36,4 @@ The following commands are available for users to keymap.
 
 ## Coming Soon
 
-* Better icon for the status bar
-
 Feel free to open an issue to discuss potential features to add or improve.
