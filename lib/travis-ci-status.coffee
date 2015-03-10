@@ -88,10 +88,10 @@ module.exports =
   init: ->
     TravisCi ?= require 'travis-ci'
 
-    atom.travis = new TravisCi({
+    atom.travis = new TravisCi(
       version: '2.0.0',
       pro: atom.config.get('travis-ci-status.useTravisCiPro')
-    })
+    )
 
     atom.commands.add 'atom-workspace', 'travis-ci-status:open-on-travis', =>
       @openOnTravis()
