@@ -69,12 +69,16 @@ class BuildStatusView extends View
   subscribeToRepo: =>
     @unsubscribe(@repo) if @repo?
 
-    if repo = atom.project.getRepo()
-      @repo = repo
-      $(repo).on 'status-changed', (path, status) =>
-        @update() if path is @getActiveItemPath()
-      $(repo).on 'statuses-changed', @update
-      @update()
+    repos = atom.project.getRepositories()
+    repo = repos.filter((r) -> /(.)*github\.com/i.test(r.getOriginUrl()))
+    repo = repo[0]
+
+    @repo = repo
+    $(repo).on 'status-changed', (path, status) =>
+      @update() if path is @getActiveItemPath()
+
+    $(repo).on 'statuses-changed', @update
+    @update()
 
   # Internal: Update the repository build status from Travis CI.
   #
