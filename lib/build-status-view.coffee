@@ -111,8 +111,8 @@ class BuildStatusView extends View
   # Returns nothing.
   repoStatus: (err, data) =>
     return @fallback() if err? and atom.travis?.pro?
-    return console.log "Error:", err if err?
     return if data['files'] is 'not found'
+    return console.log "Error:", err if err?
 
     data = data['repo']
     @status.removeClass('pending success fail')
