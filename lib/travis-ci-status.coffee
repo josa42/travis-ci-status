@@ -29,7 +29,9 @@ module.exports =
   activate: ->
     BuildStatusView ?= require './build-status-view'
     BuildMatrixView ?= require './build-matrix-view'
-    @isGitHubRepo() and @isTravisProject((e) => e and @init())
+    setTimeout =>
+      @isGitHubRepo() and @isTravisProject((e) => e and @init())
+    , 400
 
   # Internal: Deactive the package and destroys any views.
   #
