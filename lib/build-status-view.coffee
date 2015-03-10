@@ -16,9 +16,7 @@ class BuildStatusView extends View
   # matrix - The build matrix view.
   initialize: (@nwo, @matrix) ->
     atom.commands.add 'atom-workspace', 'travis-ci-status:toggle', => @toggle()
-
     this.on 'click', => @matrix.toggle()
-
     @attach()
     @subscribeToRepo()
 
@@ -71,13 +69,12 @@ class BuildStatusView extends View
 
     repos = atom.project.getRepositories()
     repo = repos.filter((r) -> /(.)*github\.com/i.test(r.getOriginUrl()))
-    repo = repo[0]
+    @repo = repo[0]
 
-    @repo = repo
-    $(repo).on 'status-changed', (path, status) =>
+    $(@repo).on 'status-changed', (path, status) =>
       @update() if path is @getActiveItemPath()
 
-    $(repo).on 'statuses-changed', @update
+    $(@repo).on 'statuses-changed', @update
     @update()
 
   # Internal: Update the repository build status from Travis CI.
