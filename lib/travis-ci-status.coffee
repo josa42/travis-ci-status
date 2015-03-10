@@ -27,7 +27,6 @@ module.exports =
   #
   # Returns nothing.
   activate: ->
-    TravisCi ?= require 'travis-ci'
     BuildStatusView ?= require './build-status-view'
     BuildMatrixView ?= require './build-matrix-view'
     @isGitHubRepo() and @isTravisProject((e) => e and @init())
