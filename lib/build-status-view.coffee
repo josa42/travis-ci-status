@@ -89,7 +89,7 @@ class BuildStatusView extends View
     updateRepo = =>
       atom.travis.repos(details[0], details[1]).get(@repoStatus)
 
-    if (typeof atom.travis isnt 'undefined') and (atom.travis is null) and (atom.travis.pro)
+    if atom.travis?.pro?
       token = atom.config.get('travis-ci-status.personalAccessToken')
       atom.travis.authenticate(github_token: token, updateRepo)
     else
@@ -110,8 +110,7 @@ class BuildStatusView extends View
   #
   # Returns nothing.
   repoStatus: (err, data) =>
-    return @fallback() if (typeof atom.travis is 'undefined') or (atom.travis is null) or (atom.travis.pro and err?)
-
+    return @fallback() if err? and atom.travis?.pro?
     return console.log "Error:", err if err?
     return if data['files'] is 'not found'
 
