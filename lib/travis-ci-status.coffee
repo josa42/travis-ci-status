@@ -49,9 +49,14 @@ module.exports =
   #
   # Returns true if the repository exists and is hosted on GitHub, else false.
   isGitHubRepo: ->
-    repo = atom.project.getRepo()
-    return false unless repo?
-    /(.)*github\.com/i.test(repo.getOriginUrl())
+    repos = atom.project.getRepositories()
+    return false if repos.length is 0
+
+    for repo in repos
+      if /(.)*github\.com/i.test(repo.getOriginUrl())
+        return true
+
+    false
 
   # Internal: Get the repoistory's name with owner.
   #
@@ -69,8 +74,11 @@ module.exports =
   # Returns nothing.
   isTravisProject: (callback) ->
     return unless callback instanceof Function
-    return callback(false) unless atom.project.path?
-    conf = path.join(atom.project.path, '.travis.yml')
+
+    projPath = atom.project.getPath()
+    return callback(false) unless projPath?
+
+    conf = path.join(projPath, '.travis.yml')
     fs.exists(conf, callback)
 
   # Internal: initializes any views.
