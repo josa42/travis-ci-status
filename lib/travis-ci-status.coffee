@@ -29,9 +29,13 @@ module.exports =
   activate: ->
     BuildStatusView ?= require './build-status-view'
     BuildMatrixView ?= require './build-matrix-view'
-    setTimeout =>
-      @isGitHubRepo() and @isTravisProject((e) => e and @init())
-    , 400
+
+    Promise.all(
+      atom.project.getDirectories().map(
+        atom.project.repositoryForDirectory.bind(atom.project)
+      )
+    ).then (repos) =>
+      @isTravisProject((config) => config and @init()) if @hasGitHubRepo(repos)
 
   # Internal: Deactive the package and destroys any views.
   #
@@ -46,16 +50,14 @@ module.exports =
   # Returns an object containing key/value pairs of view state data.
   serialize: ->
 
-  # Internal: Get whether the project repository exists and is hosted on GitHub.
+  # Internal: Get whether the project repository has a GitHub remote.
   #
-  # Returns true if the repository exists and is hosted on GitHub, else false.
-  isGitHubRepo: ->
-    repos = atom.project.getRepositories()
+  # Returns true if the repository has a GitHub remote, else false
+  hasGitHubRepo: (repos) ->
     return false if repos.length is 0
 
     for repo in repos
-      if /(.)*github\.com/i.test(repo.getOriginUrl())
-        return true
+      return true if /(.)*github\.com/i.test(repo.getOriginUrl())
 
     false
 
