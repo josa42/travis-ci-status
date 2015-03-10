@@ -65,7 +65,9 @@ module.exports =
   getNameWithOwner: ->
     repo = atom.project.getRepo()
     url  = repo.getOriginUrl()
+
     return null unless url?
+
     /([^\/:]+)\/([^\/]+)$/.exec(url.replace(/\.git$/, ''))[0]
 
   # Internal: Check there is a .travis.yml configuration file.
@@ -85,12 +87,15 @@ module.exports =
   #
   # Returns nothing
   init: ->
+    TravisCi ?= require 'travis-ci'
+
     atom.travis = new TravisCi({
       version: '2.0.0',
       pro: atom.config.get('travis-ci-status.useTravisCiPro')
     })
 
-    atom.commands.add 'atom-workspace', 'travis-ci-status:open-on-travis', => @openOnTravis()
+    atom.commands.add 'atom-workspace', 'travis-ci-status:open-on-travis', =>
+      @openOnTravis()
 
     createStatusEntry = =>
       nwo = @getNameWithOwner()
@@ -98,11 +103,12 @@ module.exports =
       @buildStatusView = new BuildStatusView(nwo, @buildMatrixView)
 
     statusBar = document.querySelector("status-bar")
+
     if statusBar?
       createStatusEntry()
     else
-      atom.packages.once 'activated', ->
-        createStatusEntry()
+      atom.packages.once 'activated', -> createStatusEntry()
+
     null
 
   # Internal: Open the project on Travis CI in the default browser.
@@ -110,6 +116,7 @@ module.exports =
   # Returns nothing.
   openOnTravis: ->
     nwo = @getNameWithOwner()
+
     domain = if atom.travis.pro
       'magnum.travis-ci.com'
     else

@@ -17,8 +17,7 @@ class BuildStatusView extends View
   initialize: (@nwo, @matrix) ->
     atom.commands.add 'atom-workspace', 'travis-ci-status:toggle', => @toggle()
 
-    this.on 'click', =>
-      @matrix.toggle()
+    this.on 'click', => @matrix.toggle()
 
     @attach()
     @subscribeToRepo()
@@ -33,8 +32,9 @@ class BuildStatusView extends View
   # Returns nothing.
   attach: ->
     statusBar = document.querySelector("status-bar")
+
     if statusBar?
-        @statusBarTile = statusBar.addLeftTile(item: this, priority: 100)
+      @statusBarTile = statusBar.addLeftTile(item: this, priority: 100)
 
   # Internal: Destroy the view and tear down any state.
   #
@@ -98,10 +98,7 @@ class BuildStatusView extends View
   #
   # Returns nothing.
   fallback: ->
-    atom.travis = new TravisCi({
-      version: '2.0.0',
-      pro: false
-    })
+    atom.travis = new TravisCi(version: '2.0.0', pro: false)
     @update()
 
   # Internal: Callback for the Travis CI repository request, updates the build
