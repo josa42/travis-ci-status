@@ -57,7 +57,7 @@ module.exports =
     return false if repos.length is 0
 
     for repo in repos
-      return true if /(.)*github\.com/i.test(repo.getOriginUrl())
+      return true if /(.)*github\.com/i.test(repo.getOriginURL())
 
     false
 
@@ -67,7 +67,7 @@ module.exports =
   # exist.
   getNameWithOwner: ->
     repo = atom.project.getRepo()
-    url  = repo.getOriginUrl()
+    url  = repo.getOriginURL()
 
     return null unless url?
 
