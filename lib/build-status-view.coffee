@@ -68,7 +68,7 @@ class BuildStatusView extends View
     @unsubscribe(@repo) if @repo?
 
     repos = atom.project.getRepositories()
-    repo = repos.filter((r) -> /(.)*github\.com/i.test(r.getOriginUrl()))
+    repo = repos.filter((r) -> /(.)*github\.com/i.test(r.getOriginURL()))
     @repo = repo[0]
 
     $(@repo).on 'status-changed', (path, status) =>
