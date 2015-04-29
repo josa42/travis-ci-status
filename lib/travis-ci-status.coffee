@@ -66,7 +66,7 @@ module.exports =
   # Returns a string of the name with owner, or null if the origin URL doesn't
   # exist.
   getNameWithOwner: ->
-    repo = atom.project.getRepo()
+    repo = atom.project.getRepositories()[0]
     url  = repo.getOriginURL()
 
     return null unless url?
@@ -80,7 +80,7 @@ module.exports =
   isTravisProject: (callback) ->
     return unless callback instanceof Function
 
-    projPath = atom.project.getPath()
+    projPath = atom.project.getPaths()[0]
     return callback(false) unless projPath?
 
     conf = path.join(projPath, '.travis.yml')
