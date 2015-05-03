@@ -2,17 +2,18 @@ TravisCiStatus = require '../lib/travis-ci-status'
 
 describe "TravisCiStatus", ->
   workspaceElement = null
+
   beforeEach ->
+    waitsForPromise ->
+      atom.packages.activatePackage('status-bar')
+
     spyOn(TravisCiStatus, "isTravisProject").andCallFake((cb) -> cb(true))
 
     workspaceElement = atom.views.getView(atom.workspace)
     jasmine.attachToDOM(workspaceElement)
 
   describe "when the travis-ci-status:toggle event is triggered", ->
-    workspaceElement = null
     beforeEach ->
-      workspaceElement = atom.views.getView(atom.workspace)
-
       spyOn(atom.project, "getRepositories").andReturn([{
         getOriginURL: ->
           "git@github.com:test/test.git"
@@ -21,8 +22,8 @@ describe "TravisCiStatus", ->
     it "attaches and then detaches the view", ->
       expect(workspaceElement.querySelector(".travis-ci-status")).not.toExist()
 
-      waitsForPromise -> atom.packages.activatePackage('status-bar')
-      waitsForPromise -> atom.packages.activatePackage("travis-ci-status")
+      waitsForPromise ->
+        atom.packages.activatePackage("travis-ci-status")
 
       runs ->
         expect(workspaceElement.querySelector(".travis-ci-status")).toExist()
