@@ -68,6 +68,7 @@ class BuildStatusView extends View
     @unsubscribe(@repo) if @repo?
 
     repos = atom.project.getRepositories()
+    console.log "DEBUG:", repos
     repo = repos.filter((r) -> /(.)*github\.com/i.test(r.getOriginURL()))
     @repo = repo[0]
 
