@@ -36,6 +36,7 @@ module.exports =
         atom.project.repositoryForDirectory.bind(atom.project)
       )
     ).then (repos) =>
+      repos = repos.filter (repo) -> repo
       new Promise((resolve) =>
         if @hasGitHubRepo(repos)
           @isTravisProject((config) ->
