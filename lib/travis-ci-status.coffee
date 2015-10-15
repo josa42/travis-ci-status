@@ -12,14 +12,14 @@ module.exports =
   # Internal: The default configuration properties for the package.
   config:
     useTravisCiPro:
-        type: 'boolean'
-        default: false
+      type: 'boolean'
+      default: false
     personalAccessToken:
-        type: 'string'
-        default: '<Your personal GitHub access token>'
+      type: 'string'
+      default: '<Your personal GitHub access token>'
     travisCiRemoteName:
-        type: 'string'
-        default: 'origin'
+      type: 'string'
+      default: 'origin'
 
   # Internal: The build matrix bottom panel view.
   buildMatrixView: null
@@ -65,7 +65,8 @@ module.exports =
     return false if repos.length is 0
     name = atom.config.get('travis-ci-status.travisCiRemoteName')
     for repo in repos
-      return true if /(.)*github\.com/i.test(repo.getConfigValue("remote.#{name}.url"))
+      reomteUrl = repo.getConfigValue("remote.#{name}.url")
+      return true if /(.)*github\.com/i.test(reomteUrl)
 
     false
 
